@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-bt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- FONTE -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <!-- /FONTE -->
+    <!-- BOOTSTRAPICONS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="style.css">
+    <!-- /BOOTSTRAPICONS -->
+
+    <script src="menu.js" defer></script>
+
+    <title>Vagner Teixeira - Portfólio</title>
+</head>
+
+
+<body>
+    <header>
+       <div class="interface">
+        <div class="logo">
+                <a href="#">
+                    <img src="images/logovagner.png" alt="Logo Vagner" width="150">
+                </a>
+        </div>
+
+        <nav class="menu-desktop">
+            <ul>
+                <li> <a href="#">English</a></li>
+                <li> <a href="#projetos">Projetos</a></li>
+                <li> <a href="#cartografia">Produtos</a></li>
+                <li> <a href="#sobre">Sobre</a></li>
+                <li> <a href="https://www.linkedin.com/in/vagnerferrazjr/">LinkedIn</a></li>
+            </ul>
+        </nav>
+        <div class="btn-abrir-menu" id="btn-menu"><i class="bi bi-list"></i>
+    </div>
+
+        <div class="menu-mobile" id="menu-mobile">
+                       <div class="btn-fechar">
+                <i class="bi bi-x-lg"></i>
+
+                     </div>
+    
+           <nav>
+            <ul>
+                <li> <a href="https://vagnertxr.github.io/portfolio">English</a></li>
+                <li> <a href="#projetos">Projetos</a></li>
+                <li> <a href="#cartografia">Produtos</a></li>
+                <li> <a href="#sobre">Sobre</a></li>
+                <li> <a href="https://www.linkedin.com/in/vagnerferrazjr/">LinkedIn</a></li>
+            </ul>
+        </nav>
+        </div>
+
+
+        <div class="btn-contato">
+            <a href="mailto:junior.vagner@live.com">
+                <button>Contato (e-mail)</button>
+            </a>
+
+
+        </div>
+
+
+        <div class="overlay-menu" id="overlay-menu"></div>
+
+       </div> <!-- interface -->
+    </header>
+<main>
+    <section id="topo" class="topo-do-site">
+        <div class="interface">
+            <div class="flex">
+                <div class="txt-topo-site"> 
+                    <h1>PORTFÓLIO DE PRODUÇÃO EM <span>CARTOGRAFIA TEMÁTICA E DADOS GEOESPACIAIS</span>.</h1>
+                    <p>Olá, mundo. Sou Geógrafo e Mestrando em Geociências Aplicadas e Geodinâmica pela Universidade de Brasília (UnB).
+                    
+                    Minha especialidade é a área de geoprocessamento e dados geoespaciais. Também atuo com bancos de dados, Data Science e WebGIS.
+                    As principais ferramentas com as quais trabalho são: ArcGis Pro e Online, QGIS, PostGIS, PostgreSQL e Python.
+
+                    </p>
+                    <p>Também sou iniciante em desenvolvimento web. Este site é o meu primeiro projeto :)
+                    </p>
+                    
+                </div>
+
+                <div class="img-topo-site">
+                    <img src="images/logo.png" alt="Logo" width="200">
+
+
+                </div>
+            
+
+            </div>
+        </div> 
+    </section>
+
+    <section id="projetos" class="especialidades">
+        <div class="interface">
+            <h2 class="titulo">MEUS <span>PROJETOS:</span></h2>
+            <div class="flex">
+                <a href="https://unb.maps.arcgis.com/apps/dashboards/e564e97ff19e49b8a61d388785948cf3" target="_blank" class="especialidades-box">
+                    <i class="bi bi-pie-chart-fill"></i>
+                    <h3>Dashboards</h3>
+                    <p>Dashboard criado para acompanhar o progresso da minha pesquisa de Mestrado, monitorando em tempo real os dados demográficos coletados através do ArcGIS Survey123.</p>
+                    <p>Criado utilizando o ArcGIS Dashboards, em conjunto com outras ferramentas do ArcGIS Online.
+                    </p>             
+                </a>
+                <a href="https://vagnertxr.github.io/game_map/" target="_blank" class="especialidades-box">                  
+                    <i class="bi bi-globe-americas"></i>
+                    <h3>Slippi Ranked SA Map</h3>
+                    <p>Webmap interativo com dados de um jogo online.</p>
+                    <p>Desenvolvi um script em Python para realizar web scraping de um site, importar e processar os dados em um banco de dados PostgreSQL, e exportá-los no formato .gpkg para serem utilizados no QGIS. 
+                    </p>
+                    <p>Mapa final criado com o qgis2web.</p>
+                </a>
+                <div class="especialidades-box">
+                    <i class="bi bi-globe-americas"></i>
+                    <h3>Outros projetos virão.</h3>
+                    <p>Dedicarei este espaço para projetos futuros.</p>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+
+    <section id="cartografia" class="mapas">
+<div class="interface">
+    <h2 class="titulo">PRODUÇÃO <span>CARTOGRÁFICA:</span></h2>
+    <div class="flex"> 
+    <p>
+
+        Planta de área urbana, mostrando áreas de plantio de mudas. Trabalho realizado para uma empresa do ramo de engenharia.
+
+    </p>
+    <div> <img src="images/img1.png" width="800" ></div>
+</div>
+
+<div class="flex">
+    <p> Mapa de vias de circulação no Campus Darcy Ribeiro da UnB. Elaborado para apresentação de projeto de Mestrado.</p> 
+    <div> <img src="images/img4.png" width="800" ></div>   
+</div>
+
+<div class="flex"> 
+    <p> Série de mapas resultado da Monografia de conclusão de curso de Geografia. Mostra dados sobre a mobilidade urbana e as características socioeconômicas da população do Distrito Federal.</p>
+    <div> <img src="images/img3.png" width="800" ></div>
+</div>
+
+
+
+</div>
+    </section>
+
+    <section id="sobre" class="sobre">
+        <div class="interface">
+            <div class="flex">
+                <div class="img-sobre">
+                    <img src="images/foto.png" alt="Foto de Vagner" width="200">
+                </div>
+                <div class="txt-sobre">
+                    <h2>QUEM SOU
+                        <span>
+                        EU?
+                    </span></h2>
+                    <p>Vagner, Geógrafo formado pela Universidade de Brasília (UnB). Mestrando no Programa de Pós-Graduação em Geociências Aplicadas e Geodinâmica, na área de Geoprocessamento e Análise Espacial, também na UnB.</p>
+                    <p>Atualmente, sou bolsista de apoio técnico à pesquisa na Universidade de Brasília, onde atuo na coleta, tratamento e disponibilização de dados geográficos em plataformas WebGIS (ArcGIS Online). Minha função inclui a criação de dashboards para visualização e análise de dados espaciais, além da implementação e gestão de sistemas de banco de dados espaciais utilizando ferramentas como QGIS, ArcGIS Pro e PostgreSQL.</p>
+                    <p>Possuo conhecimentos em linguagens como SQL (PostgreSQL + PostGIS) e Python, bem como em bibliotecas aplicadas à Ciência de Dados e Geoprocessamento, além de modelagem e implementação de bancos de dados.</p>
+                    <p>Tenho mais de 5 anos de experiência com Sistemas de Informação Geográfica e há 1 ano atuo com sistemas de bancos de dados. Recentemente comecei minha jornada no front-end, com a finalidade de me aprimorar em WebGIS.</p>
+                
+                    <div class="btn-social">
+                    <a href="https://github.com/vagnertxr" target="_blank">
+                        <button><i class="bi bi-github"></i></button>
+                    </a>
+
+                    <a href="https://www.linkedin.com/in/vagnerferrazjr" target="_blank">
+                        <button><i class="bi bi-linkedin"></i></button>
+                    </a>
+                 </div>
+            </div>
+            </div>
+        </div> </section>
+</main>
+
+
+</body>
+</html>
