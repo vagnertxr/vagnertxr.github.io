@@ -3,185 +3,920 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="images/logo.png">
-    <!-- FONTE -->
+    <link rel="icon" type="image/png" href="../images/logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    <!-- /FONTE -->
-    <!-- BOOTSTRAPICONS -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="style.css">
-    <!-- /BOOTSTRAPICONS -->
+    <title>Vagner Teixeira — Portfolio</title>
+    <style>
+        :root {
+            --bg: #0c0c0e;
+            --bg2: #131316;
+            --bg3: #1a1a1f;
+            --border: #2a2a32;
+            --text: #e8e8ee;
+            --muted: #72727f;
+            --accent: #5b9cf6;
+            --accent2: #3ddc97;
+            --mono: 'Space Mono', monospace;
+            --sans: 'DM Sans', sans-serif;
+        }
 
-    <script src="menu.js" defer></script>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    <title>Vagner Teixeira - Portfolio</title>
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: var(--sans);
+            font-weight: 300;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ─── NOISE OVERLAY ─── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+            opacity: 0.025;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* ─── SCROLLBAR ─── */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+        /* ─── HEADER ─── */
+        header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 0 5%;
+            background: rgba(12,12,14,0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            height: 64px;
+            display: flex;
+            align-items: center;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo a {
+            font-family: var(--mono);
+            font-size: 15px;
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span { color: var(--accent); }
+
+        nav.menu-desktop ul {
+            list-style: none;
+            display: flex;
+            gap: 8px;
+        }
+
+        nav.menu-desktop ul li a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 400;
+            padding: 6px 14px;
+            border-radius: 6px;
+            transition: all .2s;
+            letter-spacing: 0.3px;
+        }
+
+        nav.menu-desktop ul li a:hover {
+            color: var(--text);
+            background: var(--bg3);
+        }
+
+        .btn-contato a button {
+            font-family: var(--mono);
+            font-size: 12px;
+            padding: 8px 20px;
+            background: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all .2s;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-contato a button:hover {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        .btn-abrir-menu {
+            display: none;
+            color: var(--text);
+            font-size: 24px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        /* ─── MOBILE MENU ─── */
+        .menu-mobile {
+            background: var(--bg2);
+            height: 100vh;
+            position: fixed;
+            top: 0; right: 0;
+            z-index: 99999;
+            width: 0;
+            overflow: hidden;
+            transition: .4s cubic-bezier(.4,0,.2,1);
+            border-left: 1px solid var(--border);
+        }
+
+        .menu-mobile.abrir-menu { width: min(75%, 300px); }
+        .menu-mobile.abrir-menu ~ .overlay-menu { display: block; }
+
+        .overlay-menu {
+            background: rgba(0,0,0,.6);
+            position: fixed;
+            inset: 0;
+            z-index: 800;
+            display: none;
+            backdrop-filter: blur(2px);
+        }
+
+        .menu-mobile-header {
+            display: flex;
+            justify-content: flex-end;
+            padding: 20px 24px;
+        }
+
+        .btn-fechar {
+            color: var(--muted);
+            font-size: 20px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .menu-mobile nav ul {
+            list-style: none;
+            padding: 0 24px;
+        }
+
+        .menu-mobile nav ul li {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .menu-mobile nav ul li a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 17px;
+            font-weight: 300;
+            display: block;
+            padding: 18px 0;
+            transition: color .2s;
+        }
+
+        .menu-mobile nav ul li a:hover { color: var(--accent); }
+
+        /* ─── SECTIONS WRAPPER ─── */
+        main { padding-top: 64px; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        section { padding: 100px 0; }
+
+        /* ─── HERO ─── */
+        .hero {
+            min-height: calc(100vh - 64px);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -200px; right: -200px;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(91,156,246,0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-inner {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 80px;
+            align-items: center;
+            width: 100%;
+        }
+
+        .hero-tag {
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--accent);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hero-tag::before {
+            content: '';
+            width: 24px; height: 1px;
+            background: var(--accent);
+        }
+
+        .hero h1 {
+            font-family: var(--sans);
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 300;
+            line-height: 1.15;
+            color: var(--muted);
+            margin-bottom: 24px;
+        }
+
+        .hero h1 strong {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .hero-desc {
+            color: var(--muted);
+            font-size: 15px;
+            max-width: 580px;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+
+        /* ─── STACK BADGES ─── */
+        .stack-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 40px;
+        }
+
+        /* ─── BADGES ─── */
+        .stack-badges a {
+            display: inline-flex;
+            text-decoration: none;
+            transition: transform .15s, filter .15s;
+        }
+        .stack-badges a:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+        }
+        .stack-badges img {
+            display: block;
+            height: 28px;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary, .btn-secondary {
+            font-family: var(--mono);
+            font-size: 12px;
+            padding: 12px 28px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all .2s;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg);
+            font-weight: 700;
+        }
+
+        .btn-primary:hover { background: #7ab3f8; transform: translateY(-1px); }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--muted);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover { color: var(--text); border-color: var(--muted); transform: translateY(-1px); }
+
+        .hero-logo {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-logo img {
+            width: clamp(140px, 15vw, 200px);
+            filter: brightness(0) invert(1);
+            opacity: 0.9;
+        }
+
+        /* ─── SECTION HEADER ─── */
+        .section-header {
+            margin-bottom: 60px;
+        }
+
+        .section-label {
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--accent);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-label::before {
+            content: '';
+            width: 20px; height: 1px;
+            background: var(--accent);
+        }
+
+        .section-title {
+            font-size: clamp(24px, 3vw, 36px);
+            font-weight: 300;
+            color: var(--muted);
+        }
+
+        .section-title strong { color: var(--text); font-weight: 500; }
+
+        /* ─── PROJECTS ─── */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .project-card {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 36px;
+            text-decoration: none;
+            color: var(--text);
+            transition: all .25s;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0;
+            transition: opacity .3s;
+        }
+
+        .project-card:hover {
+            border-color: rgba(91,156,246,0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,.4);
+        }
+
+        .project-card:hover::before { opacity: 1; }
+
+        .project-icon {
+            width: 48px; height: 48px;
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: var(--accent);
+        }
+
+        .project-card h3 {
+            font-size: 17px;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .project-card p {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .project-arrow {
+            margin-top: auto;
+            font-size: 12px;
+            color: var(--accent);
+            font-family: var(--mono);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            opacity: 0;
+            transition: opacity .2s;
+        }
+
+        .project-card:hover .project-arrow { opacity: 1; }
+
+        /* ─── CAROUSEL ─── */
+        .carousel-section { background: var(--bg2); }
+
+        .carousel-wrapper {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: var(--bg3);
+        }
+
+        .carousel-track-container {
+            overflow: hidden;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform .5s cubic-bezier(.4,0,.2,1);
+        }
+
+        .carousel-slide {
+            flex: 0 0 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .carousel-image {
+            width: 100%;
+            max-height: 600px;
+            object-fit: contain;
+            display: block;
+            background: #111115;
+        }
+
+        .carousel-caption {
+            padding: 28px 36px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .carousel-caption p {
+            font-size: 14px;
+            color: var(--muted);
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .carousel-nav {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .carousel-btn {
+            width: 40px; height: 40px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg2);
+            color: var(--text);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: all .2s;
+            flex-shrink: 0;
+        }
+
+        .carousel-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .carousel-dot {
+            display: none;
+        }
+
+        /* ─── ABOUT ─── */
+        .about-grid {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 80px;
+            align-items: start;
+        }
+
+        .about-photo {
+            width: 200px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+
+        .about-photo img {
+            width: 100%;
+            display: block;
+            filter: grayscale(15%);
+        }
+
+        .about-content p {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.85;
+            margin-bottom: 16px;
+        }
+
+        .about-content p:last-of-type { margin-bottom: 32px; }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-btn {
+            width: 40px; height: 40px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg2);
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            text-decoration: none;
+            transition: all .2s;
+        }
+
+        .social-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* ─── FOOTER ─── */
+        footer {
+            padding: 40px 5%;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        footer p {
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--muted);
+            letter-spacing: 0.5px;
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 900px) {
+            .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+            .hero-avatar { width: 120px; height: 120px; }
+            .about-grid { grid-template-columns: 1fr; gap: 40px; }
+            .about-photo { width: 140px; }
+            nav.menu-desktop, .btn-contato { display: none; }
+            .btn-abrir-menu { display: flex; align-items: center; }
+            section { padding: 70px 0; }
+            .carousel-caption { padding: 20px 24px; }
+        }
+
+        @media (max-width: 600px) {
+            .projects-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 28px; }
+            .carousel-caption { flex-direction: column; align-items: flex-start; }
+        }
+
+        /* ─── FADE IN ─── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-up {
+            opacity: 0;
+            animation: fadeUp .6s ease forwards;
+        }
+
+        .fade-up:nth-child(1) { animation-delay: .1s; }
+        .fade-up:nth-child(2) { animation-delay: .2s; }
+        .fade-up:nth-child(3) { animation-delay: .3s; }
+    </style>
 </head>
-
-
 <body>
-    <header>
-       <div class="interface">
-        <div class="logo">
-                <a href="#">
-                    <img src="images/logovagner.png" alt="Logo Vagner" width="150">
-                </a>
-        </div>
 
+<header>
+    <div class="header-inner">
+        <div class="logo">
+            <a href="#"><span>//</span> vagnertxr</a>
+        </div>
         <nav class="menu-desktop">
             <ul>
-                <li> <a href="http://vagnertxr.github.io">Português</a></li>
-                <li> <a href="#projetos">Projects</a></li>
-                <li> <a href="#cartografia">Products</a></li>
-                <li> <a href="#sobre">About</a></li>
-                <li> <a href="https://www.linkedin.com/in/vagnerferrazjr/">LinkedIn</a></li>
+                <li><a href="../index.html">PT</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#cartography">Portfolio</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="https://www.linkedin.com/in/vagnerferrazjr/" target="_blank">LinkedIn</a></li>
             </ul>
         </nav>
-        <div class="btn-abrir-menu" id="btn-menu"><i class="bi bi-list"></i>
-    </div>
-
-        <div class="menu-mobile" id="menu-mobile">
-                       <div class="btn-fechar">
-                <i class="bi bi-x-lg"></i>
-
-                     </div>
-    
-           <nav>
-            <ul>
-                <li> <a href="http://vagnertxr.github.io">Português</a></li>
-                <li> <a href="#projetos">Projects</a></li>
-                <li> <a href="#cartografia">Products</a></li>
-                <li> <a href="#sobre">About</a></li>
-                <li> <a href="https://www.linkedin.com/in/vagnerferrazjr/">LinkedIn</a></li>
-            </ul>
-        </nav>
-        </div>
-
-
+        <button class="btn-abrir-menu" id="btn-menu" aria-label="Open menu">
+            <i class="bi bi-list"></i>
+        </button>
         <div class="btn-contato">
             <a href="mailto:junior.vagner@live.com">
-                <button>E-mail me</button>
+                <button>CONTACT (E-MAIL)</button>
             </a>
-
-
         </div>
+    </div>
+</header>
 
+<div class="menu-mobile" id="menu-mobile">
+    <div class="menu-mobile-header">
+        <button class="btn-fechar" id="btn-fechar" aria-label="Close menu">
+            <i class="bi bi-x-lg"></i>
+        </button>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="../index.html">PT</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#cartography">Portfolio</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="https://www.linkedin.com/in/vagnerferrazjr/" target="_blank">LinkedIn</a></li>
+        </ul>
+    </nav>
+</div>
+<div class="overlay-menu" id="overlay-menu"></div>
 
-        <div class="overlay-menu" id="overlay-menu"></div>
-
-       </div> <!-- interface -->
-    </header>
 <main>
-    <section id="topo" class="topo-do-site">
-        <div class="interface">
-            <div class="flex">
-                <div class="txt-topo-site"> 
-                    <h1>PORTFOLIO OF PRODUCTION IN <span>THEMATIC CARTOGRAPHY AND GEOSPATIAL DATA</span>.</h1>
-                    <p>I am a Geographer with an MSc in Applied Geosciences and Geodynamics from the University of Brasília (UnB).
-                    
-                    My specialty is in the area of geoprocessing and geospatial data. I also work with databases, Data Science, and WebGIS.
-                    The main tools I work with are: ArcGIS Pro and Online, QGIS, PostGIS, PostgreSQL, and Python.
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-inner">
+                <div>
+                    <div class="hero-tag fade-up">Geographer & MSc in Applied Geosciences and Geodynamics</div>
+                    <h1 class="fade-up">Production Portfolio in <strong>Thematic Cartography</strong> and <strong>Geospatial Data</strong>.</h1>
+                    <p class="hero-desc fade-up">
+                        BSc in Geography and MSc in Applied Geosciences from the University of Brasília (UnB). My specialty is geoprocessing and geospatial data. I also work with databases, Data Science, and WebGIS.
                     </p>
-                    <p>I am also a beginner in web development. This site is my first project :)
-                    </p>
-                    
+                    <p class="hero-desc fade-up">Main tools:</p>    
+                    <div class="stack-badges fade-up">
+                        <a href="https://qgis.org" target="_blank"><img src="https://img.shields.io/badge/QGIS-589632?style=for-the-badge&logo=qgis&logoColor=white" alt="QGIS"></a>
+                        <a href="https://www.esri.com/en-us/arcgis/products/arcgis-pro/overview" target="_blank"><img src="https://img.shields.io/badge/ArcGIS_Pro-2d6bb5?style=for-the-badge&logo=arcgis&logoColor=white" alt="ArcGIS Pro"></a>
+                        <a href="https://postgis.net/" target="_blank"><img src="https://img.shields.io/badge/PostGIS-316192?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostGIS"></a>
+                        <a href="https://docs.python.org/3/" target="_blank"><img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"></a>
+                        <a href="https://gdal.org/en/stable/" target="_blank"><img src="https://img.shields.io/badge/GDAL-222222?style=for-the-badge&logo=gdal&logoColor=fff" alt="GDAL"></a>
+                        <a href="https://www.r-project.org" target="_blank"><img src="https://img.shields.io/badge/R-276DC3?style=for-the-badge&logo=r&logoColor=white" alt="R"></a>
+                    </div>
+
+                    <div class="hero-cta fade-up">
+                        <a href="#projects" class="btn-primary"><i class="bi bi-folder2-open"></i> View Projects</a>
+                        <a href="mailto:junior.vagner@live.com" class="btn-secondary"><i class="bi bi-envelope"></i> Contact</a>
+                    </div>
                 </div>
-
-                <div class="img-topo-site">
-                    <img src="images/logo.png" alt="Logo" width="200">
-
-
+                <div class="hero-logo">
+                    <img src="../images/logo.png" alt="Vagner Logo">
                 </div>
-            
-
             </div>
-        </div> 
+        </div>
     </section>
 
-
-    <section id="projetos" class="especialidades">
-        <div class="interface">
-            <h2 class="titulo">MY <span>PROJECTS:</span></h2>
-            <div class="flex">
-                <a href="https://vagnertxr.github.io/game_map/" target="_blank" class="especialidades-box">                  
-                    <i class="bi bi-globe-americas"></i>
+    <!-- PROJECTS -->
+    <section id="projects">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Projects</div>
+                <h2 class="section-title">What I have <strong>built</strong></h2>
+            </div>
+            <div class="projects-grid">
+                <a href="https://vagnertxr.github.io/game_map/" target="_blank" class="project-card fade-up">
+                    <div class="project-icon"><i class="bi bi-globe-americas"></i></div>
                     <h3>Slippi Ranked SA Map</h3>
-                    <p>Interactive web map featuring data from an online game.</p>
-                    <p>I developed a Python script to perform web scraping, import and process data into a database, which is then hosted on a server and consumed by a web page.</p> 
-                    <p>Built with Python, PostgreSQL + PostGIS, GeoServer, HTML, and JavaScript, using the MapLibre library.</p>             
-                </a>             
-                
-                <a href="https://github.com/vagnertxr/sentinel_stac_loader" class="especialidades-box">
-                    <i class="bi bi-map-fill"></i>
+                    <p>Interactive webmap with online game data.</p>
+                    <p>I developed a Python script for web scraping, importing and processing data into a database, which is then exported via a server and consumed on a webpage.</p> 
+                    <p>Built using Python, PostgreSQL + PostGIS, Geoserver, HTML, and Javascript, with the MapLibre library.</p>      
+                    
+                    <div class="project-arrow"><i class="bi bi-arrow-up-right"></i> View project</div>
+                </a>
+
+                <a href="https://github.com/vagnertxr/sentinel_stac_loader" target="_blank" class="project-card fade-up">
+                    <div class="project-icon"> <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 110 110" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="10" y="10" width="32" height="18" rx="4" transform="rotate(-45 26 19)"/>
+  <rect x="38" y="38" width="24" height="24" rx="5" transform="rotate(-45 50 50)"/>
+  <rect x="66" y="66" width="32" height="18" rx="4" transform="rotate(-45 82 75)"/>
+  <path d="M26 74 Q14 62 20 48" stroke-width="5.5"/>
+  <path d="M18 84 Q0 66 8 44" stroke-width="5.5"/>
+</svg>  </div>
                     <h3>Quick VRT Imagery Loader</h3>
                     <p>QGIS Plugin. Loads Sentinel-2 and Landsat satellite imagery from the Microsoft Planetary Computer API.</p>
-                    <p>Created using Python and Qt Widget Designer. Available in the official QGIS Plugin Repository.</p>             
+                    <p>Created using Python and Qt Widget Designer. Available on the official QGIS plugins repository.</p>   
+                    
+                    <div class="project-arrow"><i class="bi bi-arrow-up-right"></i> View on GitHub</div>
                 </a>
 
-                <a href="https://unb.maps.arcgis.com/apps/dashboards/e564e97ff19e49b8a61d388785948cf3" target="_blank" class="especialidades-box">
-                    <i class="bi bi-pie-chart-fill"></i>
+                <a href="https://unb.maps.arcgis.com/apps/dashboards/e564e97ff19e49b8a61d388785948cf3" target="_blank" class="project-card fade-up">
+                    <div class="project-icon"><i class="bi bi-pie-chart-fill"></i></div>
                     <h3>Dashboards</h3>
-                    <p>Dashboard created to track my Master's research progress, providing real-time monitoring of demographic data collected via ArcGIS Survey123.</p>
-                    <p>Developed using ArcGIS Dashboards in conjunction with other ArcGIS Online tools.</p>             
+                    <p>Dashboard created to track the progress of my Master's research, monitoring real-time demographic data collected through ArcGIS Survey123.</p>
+                    <p>Created using ArcGIS Dashboards, in conjunction with other ArcGIS Online tools.</p>            
+                    
+                    <div class="project-arrow"><i class="bi bi-arrow-up-right"></i> View dashboard</div>
                 </a>
             </div>
         </div>
     </section>
-    <section id="cartografia" class="mapas">
-<div class="interface">
-    <h2 class="titulo">CARTOGRAPHIC <span>PRODUCTION:</span></h2>
-    <div class="flex"> 
-        <p>Urban area map showing planting areas for seedlings. Work done for an engineering company.</p>
 
-    <div> <img src="images/img1.png" width="800" ></div>
-</div>
+    <!-- CARTOGRAPHY / CAROUSEL -->
+    <section id="cartography" class="carousel-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Cartographic Production</div>
+                <h2 class="section-title">What I <strong>map</strong></h2>
+            </div>
 
-<div class="flex">
-    <p>Map of circulation routes on the Darcy Ribeiro Campus of UnB. Created for a Master's project presentation.</p>
-    <div> <img src="images/img4.png" width="800" ></div>   
-</div>
+            <div class="carousel-wrapper">
+                <div class="carousel-track-container">
+                    <div class="carousel-track" id="carouselTrack">
+                        <div class="carousel-slide">
+                            <img class="carousel-image" src="../images/img1.png" alt="Urban area plan with planting zones">
+                            <div class="carousel-caption">
+                                <p>Urban area plan showing seedling planting areas. Work carried out for an engineering company.</p>
+                                <div class="carousel-nav">
+                                    <button class="carousel-btn" id="prevBtn" aria-label="Previous"><i class="bi bi-chevron-left"></i></button>
+                                    <button class="carousel-btn" id="nextBtn" aria-label="Next"><i class="bi bi-chevron-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img class="carousel-image" src="../images/img4.png" alt="Circulation map of Darcy Ribeiro Campus">
+                            <div class="carousel-caption">
+                                <p>Circulation routes map at UnB's Darcy Ribeiro Campus. Prepared for a Master's project presentation.</p>
+                                <div class="carousel-nav">
+                                    <button class="carousel-btn carousel-btn-prev-2" aria-label="Previous"><i class="bi bi-chevron-left"></i></button>
+                                    <button class="carousel-btn carousel-btn-next-2" aria-label="Next"><i class="bi bi-chevron-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img class="carousel-image" src="../images/img3.png" alt="Satellite imagery compositions">
+                            <div class="carousel-caption">
+                                <p>Satellite imagery compositions for monitoring terrain changes, agricultural management, and environmental analysis.</p>
+                                <div class="carousel-nav">
+                                    <button class="carousel-btn carousel-btn-prev-3" aria-label="Previous"><i class="bi bi-chevron-left"></i></button>
+                                    <button class="carousel-btn carousel-btn-next-3" aria-label="Next"><i class="bi bi-chevron-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-<div class="flex"> 
-    <p>Satellite imagery compositions for monitoring land changes, optimizing agricultural management, supporting decision-making, and analyzing environmental factors.</p>
-    <div> <img src="images/img3.png" width="800" ></div>
-</div>
-
-
-
-</div>
+        </div>
     </section>
 
-    <section id="sobre" class="sobre">
-        <div class="interface">
-            <div class="flex">
-                <div class="img-sobre">
-                    <img src="images/foto.png" alt="Foto de Vagner" width="200">
+    <!-- ABOUT -->
+    <section id="about">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">About</div>
+                <h2 class="section-title">Who I <strong>am</strong></h2>
+            </div>
+            <div class="about-grid">
+                <div class="about-photo">
+                    <img src="../images/foto.png" alt="Vagner's Photo">
                 </div>
-                <div class="txt-sobre">
-                    <h2>WHO AM
-                        <span>
-                        I?
-                    </span></h2>
-                    <p>Geographer, graduated from the University of Brasília (UnB), with a Master’s degree in Applied Geosciences and Geodynamics from the same institution.</p>
-                    <p>I am currently a Cartography and Geoprocessing Technician at IBAMA, working as an externally contracted professional. My role involves environmental monitoring, map creation, and satellite image processing, contributing to environmental analyses and data-driven decision-making processes.</p>
-                    <p>I have also worked as a research support scholar at the University of Brasília, focusing on the collection, processing, and dissemination of geographic data on WebGIS platforms (ArcGIS Online). My responsibilities included developing dashboards for spatial data visualization and analysis, as well as implementing and managing spatial database systems using tools such as QGIS, ArcGIS Pro, and PostgreSQL.</p>
-                    <p>I have knowledge in SQL (PostgreSQL + PostGIS), Python and libraries applied to Data Science and Geoprocessing, as well as in database modeling and implementation.</p>
-                    <p>I have over 5 years of experience with Geographic Information Systems and have been working with database systems for 1 year. Recently, I started my journey in front-end development with the aim of improving my skills in WebGIS.</p>
-                    <div class="btn-social">
-                    <a href="https://github.com/vagnertxr" target="_blank">
-                        <button><i class="bi bi-github"></i></button>
-                    </a>
+                <div class="about-content">
+                    <p>Geographer (BSc) and Master (MSc) in Applied Geosciences and Geodynamics from the University of Brasília (UnB), with a career focused on geoprocessing, cartography, and geospatial data analysis.</p>
+                    <p>Currently, I provide technical services in geoprocessing and cartography for <strong style="color:var(--text)">IBAMA</strong> (as an outsourced collaborator), developing geospatial solutions to support field operations, as well as products within the <strong style="color:var(--text)">PAMGIA</strong> platform. I also implemented <strong style="color:var(--text)">Rizoma</strong> — an automated route map generator built in R and Python — as a new feature of the Crotalus system (automated prioritization of deforestation alerts).</p>
+                    <p>Previously, I served as a technical research support fellow at UnB, focusing on data structuring for WebGIS platforms (ArcGIS Online) and dashboard creation. My master's research was directed towards studies on mobility structures and urban networks.</p>
 
-                    <a href="https://www.linkedin.com/in/vagnerferrazjr" target="_blank">
-                        <button><i class="bi bi-linkedin"></i></button>
-                    </a>
-                 </div>
+                    <div class="stack-badges" style="margin-bottom:32px">
+                        <a href="https://qgis.org" target="_blank"><img src="https://img.shields.io/badge/QGIS-589632?style=for-the-badge&logo=qgis&logoColor=white" alt="QGIS"></a>
+                        <a href="https://www.esri.com/en-us/arcgis/products/arcgis-pro/overview" target="_blank"><img src="https://img.shields.io/badge/ArcGIS_Pro-2d6bb5?style=for-the-badge&logo=arcgis&logoColor=white" alt="ArcGIS Pro"></a>
+                        <a href="https://postgis.net/" target="_blank"><img src="https://img.shields.io/badge/PostGIS-316192?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostGIS"></a>
+                        <a href="https://docs.python.org/3/" target="_blank"><img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"></a>
+                        <a href="https://gdal.org/en/stable/" target="_blank"><img src="https://img.shields.io/badge/GDAL-222222?style=for-the-badge&logo=gdal&logoColor=fff" alt="GDAL"></a>
+                        <a href="https://www.r-project.org" target="_blank"><img src="https://img.shields.io/badge/R-276DC3?style=for-the-badge&logo=r&logoColor=white" alt="R"></a>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="https://github.com/vagnertxr" target="_blank" class="social-btn" aria-label="GitHub"><i class="bi bi-github"></i></a>
+                        <a href="https://www.linkedin.com/in/vagnerferrazjr" target="_blank" class="social-btn" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                        <a href="mailto:junior.vagner@live.com" class="social-btn" aria-label="E-mail"><i class="bi bi-envelope"></i></a>
+                    </div>
+                </div>
             </div>
-            </div>
-        </div> </section>
+        </div>
+    </section>
 </main>
 
+<footer>
+    <p>© 2026 Vagner Teixeira — built with HTML, CSS &amp; geospatial curiosity.</p>
+</footer>
 
+<script>
+    // ── MOBILE MENU ──
+    const btnMenu = document.getElementById('btn-menu');
+    const menu = document.getElementById('menu-mobile');
+    const overlay = document.getElementById('overlay-menu');
+    const btnFechar = document.getElementById('btn-fechar');
+
+    btnMenu.addEventListener('click', () => menu.classList.add('abrir-menu'));
+    btnFechar.addEventListener('click', () => menu.classList.remove('abrir-menu'));
+    overlay.addEventListener('click', () => menu.classList.remove('abrir-menu'));
+
+    menu.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => menu.classList.remove('abrir-menu'));
+    });
+
+    // ── CAROUSEL ──
+    const track = document.getElementById('carouselTrack');
+    const slides = track.querySelectorAll('.carousel-slide');
+    const totalSlides = slides.length;
+    let current = 0;
+
+    function goTo(index) {
+        current = (index + totalSlides) % totalSlides;
+        track.style.transform = `translateX(-${current * 100}%)`;
+    }
+
+    document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
+    document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
+
+    // Allow all btn-prev / btn-next variants to work (slides 2,3)
+    document.querySelectorAll('.carousel-btn-prev-2, .carousel-btn-prev-3').forEach(b => {
+        b.addEventListener('click', () => goTo(current - 1));
+    });
+    document.querySelectorAll('.carousel-btn-next-2, .carousel-btn-next-3').forEach(b => {
+        b.addEventListener('click', () => goTo(current + 1));
+    });
+
+    // Auto-advance
+    let timer = setInterval(() => goTo(current + 1), 5000);
+    track.closest('.carousel-wrapper').addEventListener('mouseenter', () => clearInterval(timer));
+    track.closest('.carousel-wrapper').addEventListener('mouseleave', () => {
+        timer = setInterval(() => goTo(current + 1), 5000);
+    });
+
+    // Touch/swipe support
+    let touchStartX = 0;
+    track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+    track.addEventListener('touchend', e => {
+        const diff = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) goTo(current + (diff > 0 ? 1 : -1));
+    });
+
+    // ── SCROLL FADE ──
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.project-card').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity .5s ease, transform .5s ease';
+        observer.observe(el);
+    });
+</script>
 </body>
 </html>
