@@ -379,6 +379,8 @@
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-auto-rows: 1fr;
+            align-items: stretch;
             gap: 20px;
         }
 
@@ -395,6 +397,7 @@
             gap: 16px;
             position: relative;
             overflow: hidden;
+            height: 100%;
         }
 
         .project-card::before {
@@ -459,87 +462,6 @@
 
         .project-card:hover .project-arrow { opacity: 1; }
 
-        /* ─── CAROUSEL ─── */
-        .carousel-section { background: var(--bg2); }
-
-        .carousel-wrapper {
-            position: relative;
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            background: var(--bg3);
-        }
-
-        .carousel-track-container {
-            overflow: hidden;
-        }
-
-        .carousel-track {
-            display: flex;
-            transition: transform .5s cubic-bezier(.4,0,.2,1);
-        }
-
-        .carousel-slide {
-            flex: 0 0 100%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .carousel-image {
-            width: 100%;
-            max-height: 600px;
-            object-fit: contain;
-            display: block;
-            background: #111115;
-        }
-
-        .carousel-caption {
-            padding: 28px 36px;
-            border-top: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .carousel-caption p {
-            font-size: 14px;
-            color: var(--muted);
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .carousel-nav {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .carousel-btn {
-            width: 40px; height: 40px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            background: var(--bg2);
-            color: var(--text);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            transition: all .2s;
-            flex-shrink: 0;
-        }
-
-        .carousel-btn:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-
-        .carousel-dot {
-            display: none;
-        }
-
         /* ─── ABOUT ─── */
         .about-grid {
             display: grid;
@@ -567,6 +489,15 @@
             color: var(--muted);
             line-height: 1.85;
             margin-bottom: 16px;
+        }
+
+        .about-content a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .about-content a:hover {
+            color: var(--accent);
         }
 
         .about-content p:last-of-type { margin-bottom: 32px; }
@@ -619,13 +550,11 @@
             nav.menu-desktop, .btn-contato { display: none; }
             .btn-abrir-menu { display: flex; align-items: center; }
             section { padding: 70px 0; }
-            .carousel-caption { padding: 20px 24px; }
         }
 
         @media (max-width: 600px) {
             .projects-grid { grid-template-columns: 1fr; }
             .hero h1 { font-size: 28px; }
-            .carousel-caption { flex-direction: column; align-items: flex-start; }
         }
 
         /* ─── FADE IN ─── */
@@ -642,6 +571,7 @@
         .fade-up:nth-child(1) { animation-delay: .1s; }
         .fade-up:nth-child(2) { animation-delay: .2s; }
         .fade-up:nth-child(3) { animation-delay: .3s; }
+        .fade-up:nth-child(4) { animation-delay: .4s; }
     </style>
 </head>
 <body>
@@ -655,7 +585,6 @@
             <ul>
                 <li><a href="/english/english.html">EN</a></li>
                 <li><a href="#projetos">Projetos</a></li>
-                <li><a href="#cartografia">Portfólio</a></li>
                 <li><a href="#sobre">Sobre</a></li>
                 <li><a href="https://www.linkedin.com/in/vagnerferrazjr/" target="_blank">LinkedIn</a></li>
             </ul>
@@ -681,7 +610,6 @@
         <ul>
             <li><a href="/english/english.html">EN</a></li>
             <li><a href="#projetos">Projetos</a></li>
-            <li><a href="#cartografia">Portfólio</a></li>
             <li><a href="#sobre">Sobre</a></li>
             <li><a href="https://www.linkedin.com/in/vagnerferrazjr/" target="_blank">LinkedIn</a></li>
         </ul>
@@ -696,9 +624,9 @@
             <div class="hero-inner">
                 <div>
                     <div class="hero-tag fade-up">Geógrafo & Mestre em Geociências Aplicadas e Geodinâmica</div>
-                    <h1 class="fade-up">Portfólio de produção em <strong>Cartografia Temática</strong> e <strong>Dados Geoespaciais</strong>.</h1>
+                    <h1 class="fade-up">Portfólio de <strong>cartografia</strong> e <strong>análise de dados geoespaciais</strong>.</h1>
                     <p class="hero-desc fade-up">
-                        BSc em Geografia e MSc em Geociências Aplicadas pela Universidade de Brasília (UnB). Minha especialidade é a área de geoprocessamento e dados geoespaciais. Também atuo com bancos de dados, Data Science e WebGIS.
+                        BSc em Geografia e MSc em Geociências Aplicadas pela Universidade de Brasília (UnB). Minha especialidade é criar soluções com geoprocessamento, dados geoespaciais, automação, bancos de dados, Data Science e WebGIS.
                     </p>
                     <p class="hero-desc fade-up">Principais ferramentas:</p>    
                     <div class="stack-badges fade-up">
@@ -727,7 +655,7 @@
         <div class="container">
             <div class="section-header">
                 <div class="section-label">Projetos</div>
-                <h2 class="section-title">O que eu <strong>construí</strong></h2>
+                <h2 class="section-title">Projetos de <strong>desenvolvimento</strong></h2>
             </div>
             <div class="projects-grid">
                 <a href="https://vagnertxr.github.io/game_map/" target="_blank" class="project-card fade-up">
@@ -760,63 +688,15 @@
                     <div class="project-arrow"><i class="bi bi-arrow-up-right"></i> Ver dashboard</div>
                 </a>
 
-                <a href="https://github.com/vagnertxr/amazonia_geomonitor" target="_blank" class="project-card fade-up">
+                <a href="https://vagnertxr.github.io/amazonia_geomonitor/" target="_blank" class="project-card fade-up">
                     <div class="project-icon"><img src="images/geomonitor-amazonia.svg" alt=""></div>
-                    <h3>GeomonitoR da Amazonia</h3>
+                    <h3>GeomonitoR da Amazônia</h3>
                     <p>Dashboard de monitoramento automatizado de alertas de supressão de vegetação na Amazônia utilizando dados do DETER (INPE).</p>
                     <p>Processamentos feitos em R.</p>
 
                     <div class="project-arrow"><i class="bi bi-arrow-up-right"></i> Ver no GitHub</div>
                 </a>
             </div>
-        </div>
-    </section>
-
-    <!-- CARTOGRAFIA / CARROSSEL -->
-    <section id="cartografia" class="carousel-section">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-label">Produção Cartográfica</div>
-                <h2 class="section-title">O que eu <strong>mapeio</strong></h2>
-            </div>
-
-            <div class="carousel-wrapper">
-                <div class="carousel-track-container">
-                    <div class="carousel-track" id="carouselTrack">
-                        <div class="carousel-slide">
-                            <img class="carousel-image" src="images/img1.png" alt="Planta de área urbana com zonas de plantio">
-                            <div class="carousel-caption">
-                                <p>Planta de área urbana mostrando áreas de plantio de mudas. Trabalho realizado para uma empresa de engenharia.</p>
-                                <div class="carousel-nav">
-                                    <button class="carousel-btn" id="prevBtn" aria-label="Anterior"><i class="bi bi-chevron-left"></i></button>
-                                    <button class="carousel-btn" id="nextBtn" aria-label="Próximo"><i class="bi bi-chevron-right"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-slide">
-                            <img class="carousel-image" src="images/img4.png" alt="Mapa de vias do Campus Darcy Ribeiro">
-                            <div class="carousel-caption">
-                                <p>Mapa de vias de circulação no Campus Darcy Ribeiro da UnB. Elaborado para apresentação de projeto de Mestrado.</p>
-                                <div class="carousel-nav">
-                                    <button class="carousel-btn carousel-btn-prev-2" aria-label="Anterior"><i class="bi bi-chevron-left"></i></button>
-                                    <button class="carousel-btn carousel-btn-next-2" aria-label="Próximo"><i class="bi bi-chevron-right"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-slide">
-                            <img class="carousel-image" src="images/img3.png" alt="Composições com imagens de satélite">
-                            <div class="carousel-caption">
-                                <p>Composições com imagens de satélite para monitoramento de mudanças no terreno, gestão agrícola e análise ambiental.</p>
-                                <div class="carousel-nav">
-                                    <button class="carousel-btn carousel-btn-prev-3" aria-label="Anterior"><i class="bi bi-chevron-left"></i></button>
-                                    <button class="carousel-btn carousel-btn-next-3" aria-label="Próximo"><i class="bi bi-chevron-right"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </section>
 
@@ -832,8 +712,8 @@
                     <img src="images/foto.png" alt="Foto de Vagner">
                 </div>
                 <div class="about-content">
-                    <p>Geógrafo (BSc) e Mestre (MSc) em Geociências Aplicadas e Geodinâmica pela Universidade de Brasília (UnB), com carreira focada em geoprocessamento, cartografia e análise de dados geoespaciais.</p>
-                    <p>Atualmente presto serviços técnicos em geoprocessamento e cartografia para o <strong style="color:var(--text)">IBAMA</strong> (como colaborador terceirizado), desenvolvendo soluções geoespaciais para apoiar operações de campo, além de produtos dentro da plataforma <strong style="color:var(--text)">PAMGIA</strong>. Também implementei o <strong style="color:var(--text)">Rizoma</strong> — um gerador automatizado de mapas de rotas construído em R e Python — como nova funcionalidade do sistema Crotalus (priorização automatizada de alertas de desmatamento).</p>
+                    <p>Geógrafo (BSc) e Mestre (MSc) em Geociências Aplicadas e Geodinâmica pela Universidade de Brasília (UnB), com carreira focada em geoprocessamento, desenvolvimento de soluções geoespaciais e análise de dados.</p>
+                    <p>Atualmente presto serviços técnicos em geoprocessamento e desenvolvimento geoespacial para o <strong style="color:var(--text)"><a href="https://www.gov.br/ibama/pt-br" target="_blank">IBAMA</a></strong> (como colaborador terceirizado), criando soluções para apoiar operações de campo, além de produtos dentro da plataforma <strong style="color:var(--text)"><a href="https://pamgia.ibama.gov.br/home/" target="_blank">PAMGIA</a></strong>. Também implementei o <strong style="color:var(--text)">Rizoma</strong> — um gerador automatizado de mapas de rotas construído em R e Python — como nova funcionalidade do sistema Crotalus (priorização automatizada de alertas de desmatamento).</p>
                     <p>Anteriormente, atuei como bolsista de apoio técnico à pesquisa na UnB, com foco na estruturação de dados para plataformas WebGIS (ArcGIS Online) e criação de dashboards. Minha pesquisa de mestrado foi direcionada a estudos sobre estruturas de mobilidade e redes urbanas.</p>
 
                     <div class="stack-badges" style="margin-bottom:32px">
@@ -873,43 +753,6 @@
 
     menu.querySelectorAll('a').forEach(a => {
         a.addEventListener('click', () => menu.classList.remove('abrir-menu'));
-    });
-
-    // ── CAROUSEL ──
-    const track = document.getElementById('carouselTrack');
-    const slides = track.querySelectorAll('.carousel-slide');
-    const totalSlides = slides.length;
-    let current = 0;
-
-    function goTo(index) {
-        current = (index + totalSlides) % totalSlides;
-        track.style.transform = `translateX(-${current * 100}%)`;
-    }
-
-    document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
-    document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
-
-    // Allow all btn-prev / btn-next variants to work (slides 2,3)
-    document.querySelectorAll('.carousel-btn-prev-2, .carousel-btn-prev-3').forEach(b => {
-        b.addEventListener('click', () => goTo(current - 1));
-    });
-    document.querySelectorAll('.carousel-btn-next-2, .carousel-btn-next-3').forEach(b => {
-        b.addEventListener('click', () => goTo(current + 1));
-    });
-
-    // Auto-advance
-    let timer = setInterval(() => goTo(current + 1), 5000);
-    track.closest('.carousel-wrapper').addEventListener('mouseenter', () => clearInterval(timer));
-    track.closest('.carousel-wrapper').addEventListener('mouseleave', () => {
-        timer = setInterval(() => goTo(current + 1), 5000);
-    });
-
-    // Touch/swipe support
-    let touchStartX = 0;
-    track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
-    track.addEventListener('touchend', e => {
-        const diff = touchStartX - e.changedTouches[0].clientX;
-        if (Math.abs(diff) > 50) goTo(current + (diff > 0 ? 1 : -1));
     });
 
     // ── SCROLL FADE ──
