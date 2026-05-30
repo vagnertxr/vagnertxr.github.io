@@ -427,6 +427,12 @@
             color: var(--accent);
         }
 
+        .project-icon img {
+            width: 26px;
+            height: 26px;
+            display: block;
+        }
+
         .project-card h3 {
             font-size: 17px;
             font-weight: 500;
@@ -735,13 +741,7 @@
                 </a>
 
                 <a href="https://github.com/vagnertxr/sentinel_stac_loader" target="_blank" class="project-card fade-up">
-                    <div class="project-icon"> <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 110 110" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
-  <rect x="10" y="10" width="32" height="18" rx="4" transform="rotate(-45 26 19)"/>
-  <rect x="38" y="38" width="24" height="24" rx="5" transform="rotate(-45 50 50)"/>
-  <rect x="66" y="66" width="32" height="18" rx="4" transform="rotate(-45 82 75)"/>
-  <path d="M26 74 Q14 62 20 48" stroke-width="5.5"/>
-  <path d="M18 84 Q0 66 8 44" stroke-width="5.5"/>
-</svg>  </div>
+                    <div class="project-icon"><img src="images/map.svg" alt=""></div>
                     <h3>Quick VRT Imagery Loader</h3>
                     <p>QGIS Plugin. Loads Sentinel-2 and Landsat satellite imagery from the Microsoft Planetary Computer API.</p>
                     <p>Created using Python and Qt Widget Designer. Available on the official QGIS plugins repository.</p>   
@@ -756,6 +756,15 @@
                     <p>Created using ArcGIS Dashboards, in conjunction with other ArcGIS Online tools.</p>            
                     
                     <div class="project-arrow"><i class="bi bi-arrow-up-right"></i> View dashboard</div>
+                </a>
+
+                <a href="https://github.com/vagnertxr/amazonia_geomonitor" target="_blank" class="project-card fade-up">
+                    <div class="project-icon"><img src="images/geomonitor-amazonia.svg" alt=""></div>
+                    <h3>GeomonitoR da Amazonia</h3>
+                    <p>Automated dashboard for monitoring vegetation suppression alerts in the Amazon using DETER (INPE) data.</p>
+                    <p>Processing workflows built in R.</p>
+
+                    <div class="project-arrow"><i class="bi bi-arrow-up-right"></i> View on GitHub</div>
                 </a>
             </div>
         </div>
